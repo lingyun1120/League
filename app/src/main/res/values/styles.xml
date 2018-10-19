@@ -1,0 +1,11 @@
+<resources>
+
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorWhite</item>
+        <item name="colorPrimaryDark">@color/colorWhite</item>
+        <!-- 溢出菜单图标颜色，可以自己设置成任意的颜色-->
+        <item name="colorControlNormal">@android:color/white</item>
+        <!--允许启用窗口内容转换效果-->
+        <item name="android:windowContentTransitions">true</item>
+    </style>
+</resources>
