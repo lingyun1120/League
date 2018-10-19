@@ -38,6 +38,12 @@ public class GankBeautyAdapter extends RecyclerView.Adapter<GankBeautyAdapter.It
         notifyDataSetChanged();
     }
 
+    public void addData(List<GankBeautyBean.ResultsBean> data) {
+        mData.addAll(data);
+        notifyDataSetChanged();
+    }
+
+
     @NonNull
     @Override
     public GankBeautyAdapter.ItemHolder onCreateViewHolder(@NonNull ViewGroup parent, int position) {

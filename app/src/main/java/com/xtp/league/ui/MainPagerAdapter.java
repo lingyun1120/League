@@ -116,4 +116,15 @@ public class MainPagerAdapter extends PagerAdapter {
     @Override
     public void restoreState(Parcelable state, ClassLoader loader) {
     }
+
+    @Override
+    public CharSequence getPageTitle(int position) {
+        if (position ==0 ) {
+            return "GANK";
+        } else if (position ==1 ) {
+            return "WAN";
+        } else {
+            return "TEST";
+        }
+    }
 }
