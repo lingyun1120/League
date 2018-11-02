@@ -1,4 +1,4 @@
-package com.xtp.library.base;
+package com.xtp.library.base.mvp;
 
 public interface BaseView {
 //    void showProgressDialog();

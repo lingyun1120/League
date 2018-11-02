@@ -1,4 +1,4 @@
-package com.xtp.library.base;
+package com.xtp.library.base.mvp;
 
 import com.trello.rxlifecycle2.LifecycleProvider;
 import com.trello.rxlifecycle2.android.ActivityEvent;

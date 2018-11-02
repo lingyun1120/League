@@ -1,4 +1,4 @@
-package com.xtp.league.http;
+package com.xtp.league.pojo;
 
 import java.util.List;
 

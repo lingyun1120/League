@@ -1,4 +1,6 @@
-package com.xtp.league.http;
+package com.xtp.league.pojo;
+
+import com.xtp.league.pojo.BaseBean;
 
 import java.util.List;
 

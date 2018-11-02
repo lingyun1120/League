@@ -6,18 +6,12 @@
     android:layout_height="match_parent"
     android:background="#f2f3f5">
 
-    <com.scwang.smartrefresh.layout.header.ClassicsHeader
+    <com.scwang.smartrefresh.header.StoreHouseHeader
+        android:id="@+id/storeHouseHeader"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:srlClassicsSpinnerStyle="FixedBehind"
-        app:srlDrawableArrowSize="20dp"
-        app:srlDrawableMarginRight="20dp"
-        app:srlDrawableProgressSize="20dp"
-        app:srlEnableLastTime="true"
-        app:srlFinishDuration="500"
-        app:srlTextSizeTime="10dp"
-        app:srlTextSizeTitle="16sp"
-        app:srlTextTimeMarginTop="2dp" />
+        android:layout_height="100dp"
+        app:shhText="XLEAGUE"
+        app:shhLineWidth="2dp"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rvView"

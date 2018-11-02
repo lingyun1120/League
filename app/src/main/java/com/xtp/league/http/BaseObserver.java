@@ -1,5 +1,7 @@
 package com.xtp.league.http;
 
+import com.xtp.league.pojo.BaseBean;
+
 import io.reactivex.subscribers.DisposableSubscriber;
 import retrofit2.HttpException;
 

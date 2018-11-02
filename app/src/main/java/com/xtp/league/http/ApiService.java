@@ -1,5 +1,8 @@
 package com.xtp.league.http;
 
+import com.xtp.league.pojo.GankBeautyBean;
+import com.xtp.league.pojo.GankDetailBean;
+
 import io.reactivex.Flowable;
 import retrofit2.http.GET;
 import retrofit2.http.Path;

@@ -1,14 +1,16 @@
 package com.xtp.league.ui.gank;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.scwang.smartrefresh.header.StoreHouseHeader;
+import com.scwang.smartrefresh.layout.api.RefreshHeader;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
@@ -16,7 +18,7 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.xtp.league.R;
 import com.xtp.league.http.ApiService;
 import com.xtp.league.http.BaseObserver;
-import com.xtp.league.http.GankBeautyBean;
+import com.xtp.league.pojo.GankBeautyBean;
 import com.xtp.league.util.DynamicTimeFormat;
 import com.xtp.library.base.BaseFragment;
 import com.xtp.library.http.RetrofitClient;
@@ -33,7 +35,6 @@ public class GankFragment extends BaseFragment {
     private RecyclerView rvView;
     private GankBeautyAdapter mAdapter;
     private RefreshLayout refreshLayout;
-    private ClassicsHeader mClassicsHeader;
     private int mPage = 1;
 
     @Nullable
@@ -48,7 +49,7 @@ public class GankFragment extends BaseFragment {
         rvView = view.findViewById(R.id.rvView);
 
         mAdapter = new GankBeautyAdapter(getContext());
-        LinearLayoutManager linear = new GridLayoutManager(getContext(), 2);
+        LinearLayoutManager linear = new LinearLayoutManager(getContext());
         rvView.setLayoutManager(linear);
         rvView.setAdapter(mAdapter);
         rvView.setHasFixedSize(true);
@@ -56,23 +57,18 @@ public class GankFragment extends BaseFragment {
         refreshLayout =view.findViewById(R.id.refreshLayout);
         refreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
-            public void onRefresh(RefreshLayout refreshlayout) {
+            public void onRefresh(@NonNull RefreshLayout refreshlayout) {
                 mPage = 1;
                 requestGankWelfare();
             }
         });
         refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
             @Override
-            public void onLoadMore(RefreshLayout refreshlayout) {
+            public void onLoadMore(@NonNull RefreshLayout refreshlayout) {
                 mPage++;
                 requestGankWelfare();
             }
         });
-
-        mClassicsHeader = (ClassicsHeader) refreshLayout.getRefreshHeader();
-        mClassicsHeader.setLastUpdateTime(new Date(System.currentTimeMillis()));
-        mClassicsHeader.setTimeFormat(new SimpleDateFormat("更新于 MM-dd HH:mm", Locale.CHINA));
-        mClassicsHeader.setTimeFormat(new DynamicTimeFormat("更新于 %s"));
     }
 
     @Override

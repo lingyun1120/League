@@ -23,8 +23,9 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.gank.GankDetailActivity"
+            android:name=".ui.gank.detail.GankDetailActivity"
             android:screenOrientation="portrait" />
+        <activity android:name=".ui.test.aac.LiveDataActivity" />
     </application>
 
 </manifest>

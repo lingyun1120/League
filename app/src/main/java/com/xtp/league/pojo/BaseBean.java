@@ -1,4 +1,4 @@
-package com.xtp.league.http;
+package com.xtp.league.pojo;
 
 public class BaseBean {
     private boolean error;

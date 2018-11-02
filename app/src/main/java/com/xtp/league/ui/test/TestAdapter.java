@@ -1,4 +1,4 @@
-package com.xtp.league.ui.gank;
+package com.xtp.league.ui.test;
 
 import android.app.Activity;
 import android.content.Context;
@@ -15,53 +15,38 @@ import android.widget.TextView;
 
 import com.xtp.league.R;
 import com.xtp.league.global.Constant;
-import com.xtp.league.pojo.GankBeautyBean;
-import com.xtp.league.ui.gank.detail.GankDetailActivity;
+import com.xtp.league.pojo.TestBean;
+import com.xtp.league.ui.test.aac.LiveDataActivity;
 import com.xtp.league.util.GlideUtil;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class GankBeautyAdapter extends RecyclerView.Adapter<GankBeautyAdapter.ItemHolder> {
+public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ItemHolder> {
 
     private Context context;
 
-    private List<GankBeautyBean.ResultsBean> mData;
+    private List<TestBean> mDatas;
 
-    public GankBeautyAdapter(Context context) {
+    public TestAdapter(Context context, List<TestBean> data) {
+        mDatas = data;
         this.context = context;
-        mData = new ArrayList<>();
     }
-
-    public void setData(List<GankBeautyBean.ResultsBean> data) {
-        mData.clear();
-        mData.addAll(data);
-        notifyDataSetChanged();
-    }
-
-    public void addData(List<GankBeautyBean.ResultsBean> data) {
-        mData.addAll(data);
-        notifyDataSetChanged();
-    }
-
 
     @NonNull
     @Override
-    public GankBeautyAdapter.ItemHolder onCreateViewHolder(@NonNull ViewGroup parent, int position) {
-        return new ItemHolder(LayoutInflater.from(context).inflate(R.layout.gank_recycle_item, parent, false));
+    public TestAdapter.ItemHolder onCreateViewHolder(@NonNull ViewGroup parent, int position) {
+        return new ItemHolder(LayoutInflater.from(context).inflate(R.layout.test_recycle_item, parent, false));
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final GankBeautyAdapter.ItemHolder viewHolder, final int position) {
-        GlideUtil.load(context, viewHolder.ivPicture, mData.get(position).getUrl());
-        viewHolder.tvDetail.setText(mData.get(position).getPublishedAt().split("T")[0]);
+    public void onBindViewHolder(@NonNull final TestAdapter.ItemHolder viewHolder, final int position) {
+        GlideUtil.load(context, viewHolder.ivPicture, mDatas.get(position).img);
+        viewHolder.tvDetail.setText( mDatas.get(position).title);
         viewHolder.ivPicture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, GankDetailActivity.class);
-                intent.putExtra(Constant.KEY_IMG, mData.get(position).getUrl());
-                intent.putExtra(Constant.KEY_DATE, mData.get(position).getPublishedAt().split("T")[0]);
-
+                Intent intent = new Intent(context, LiveDataActivity.class);
+                intent.putExtra(Constant.KEY_IMG, mDatas.get(position).img);
                 Pair image = new Pair(viewHolder.ivPicture, "image");
                 ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation((Activity) context, image);
                 context.startActivity(intent, optionsCompat.toBundle());
@@ -71,7 +56,7 @@ public class GankBeautyAdapter extends RecyclerView.Adapter<GankBeautyAdapter.It
 
     @Override
     public int getItemCount() {
-        return mData.size();
+        return mDatas.size();
     }
 
     class ItemHolder extends RecyclerView.ViewHolder {
