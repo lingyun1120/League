@@ -2,8 +2,8 @@ package com.xtp.library.util.bar;
 
 import android.database.ContentObserver;
 import android.graphics.Color;
-import android.support.annotation.ColorInt;
-import android.support.annotation.FloatRange;
+import androidx.annotation.ColorInt;
+import androidx.annotation.FloatRange;
 import android.view.View;
 import android.view.WindowManager;
 

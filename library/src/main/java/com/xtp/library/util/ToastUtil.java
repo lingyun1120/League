@@ -1,8 +1,8 @@
 package com.xtp.library.util;
 
 import android.annotation.SuppressLint;
-import android.support.annotation.DrawableRes;
-import android.support.annotation.StringRes;
+import androidx.annotation.DrawableRes;
+import androidx.annotation.StringRes;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;

@@ -1,10 +1,10 @@
 package com.xtp.league.ui.gank.detail;
 
-import android.arch.lifecycle.Observer;
-import android.arch.lifecycle.ViewModelProvider;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.widget.Toolbar;
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.ImageView;
 
@@ -20,12 +20,19 @@ import com.xtp.library.base.BaseActivity;
 import com.xtp.library.http.RetrofitClient;
 import com.xtp.library.http.RxSchedulers;
 
+import java.util.concurrent.TimeUnit;
+
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+
 public class GankDetailActivity extends BaseActivity {
 
     private Toolbar tToolbar;
     private ImageView ivPicture;
 
     private GankDetailViewModel mVM;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

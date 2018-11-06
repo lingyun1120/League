@@ -2,14 +2,14 @@ package com.xtp.library.base;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.orhanobut.logger.Logger;
-import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 import com.xtp.library.util.MemoryLeakUtil;
 import com.xtp.library.util.bar.ImmersionBar;
 
-public class BaseActivity extends RxAppCompatActivity {
+public class BaseActivity extends AppCompatActivity {
 
     protected ImmersionBar mImmersionBar;
 
@@ -60,8 +60,5 @@ public class BaseActivity extends RxAppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-    }
-
-    public void onNetworkChanged(int netWorkStates) {
     }
 }

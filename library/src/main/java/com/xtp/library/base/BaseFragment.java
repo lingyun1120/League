@@ -3,15 +3,15 @@ package com.xtp.library.base;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.orhanobut.logger.Logger;
-import com.trello.rxlifecycle2.components.support.RxFragment;
 
-public class BaseFragment extends RxFragment {
+public class BaseFragment extends Fragment {
     protected Context mContext;
 
     @Override

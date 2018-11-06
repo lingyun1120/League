@@ -1,33 +1,27 @@
 package com.xtp.league.ui.gank;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.scwang.smartrefresh.header.StoreHouseHeader;
-import com.scwang.smartrefresh.layout.api.RefreshHeader;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.xtp.league.R;
 import com.xtp.league.http.ApiService;
 import com.xtp.league.http.BaseObserver;
 import com.xtp.league.pojo.GankBeautyBean;
-import com.xtp.league.util.DynamicTimeFormat;
 import com.xtp.library.base.BaseFragment;
 import com.xtp.library.http.RetrofitClient;
 import com.xtp.library.http.RxSchedulers;
+import com.xtp.library.util.RxUtil;
 import com.xtp.library.util.bar.ImmersionBar;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class GankFragment extends BaseFragment {
 
@@ -54,7 +48,7 @@ public class GankFragment extends BaseFragment {
         rvView.setAdapter(mAdapter);
         rvView.setHasFixedSize(true);
 
-        refreshLayout =view.findViewById(R.id.refreshLayout);
+        refreshLayout = view.findViewById(R.id.refreshLayout);
         refreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshlayout) {
@@ -82,7 +76,7 @@ public class GankFragment extends BaseFragment {
                 .obtainService(ApiService.class)
                 .getBeauty(15, mPage)
                 .compose(RxSchedulers.<GankBeautyBean>compose())
-                .compose(this.<GankBeautyBean>bindToLifecycle())
+                .as(RxUtil.<GankBeautyBean>bindLifecycle(this))
                 .subscribe(new BaseObserver<GankBeautyBean>() {
                     @Override
                     protected void onSuccess(GankBeautyBean bean) {
@@ -101,5 +95,6 @@ public class GankFragment extends BaseFragment {
                         refreshLayout.finishLoadMore(false);
                     }
                 });
+
     }
 }
