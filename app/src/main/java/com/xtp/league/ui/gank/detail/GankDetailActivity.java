@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.ImageView;
 
+import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.tabs.TabLayout;
 import com.orhanobut.logger.Logger;
 import com.xtp.league.App;
@@ -12,6 +13,7 @@ import com.xtp.league.global.Constant;
 import com.xtp.league.pojo.GankDetailBean;
 import com.xtp.league.util.GlideUtil;
 import com.xtp.library.base.BaseActivity;
+import com.xtp.library.util.Util;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
@@ -22,6 +24,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class GankDetailActivity extends BaseActivity {
 
+    private AppBarLayout ablAppBar;
     private Toolbar tToolbar;
     private ImageView ivPicture;
     private RecyclerView rvList;
@@ -41,6 +44,7 @@ public class GankDetailActivity extends BaseActivity {
 
     private void initView() {
         tToolbar = findViewById(R.id.tToolbar);
+        ablAppBar = findViewById(R.id.ablAppBar);
         rvList = findViewById(R.id.rvList);
 
         setSupportActionBar(tToolbar);
@@ -51,9 +55,13 @@ public class GankDetailActivity extends BaseActivity {
 
         mImmersionBar
                 .titleBar(tToolbar)
-                .statusBarDarkFont(false)
+                .statusBarDarkFont(true)
                 .navigationBarEnable(false)
                 .init();
+
+        ablAppBar.addOnOffsetChangedListener((appBarLayout, i) -> {
+            float ratio = Math.abs(i) * 1.0f / Util.dip2px(360);
+        });
 
         ivPicture = findViewById(R.id.ivPicture);
 

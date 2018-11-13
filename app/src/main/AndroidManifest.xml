@@ -13,7 +13,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        tools:ignore="GoogleAppIndexingWarning">
+        tools:ignore="AllowBackup,GoogleAppIndexingWarning">
         <activity android:name=".ui.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,7 +24,12 @@
         <activity
             android:name=".ui.gank.detail.GankDetailActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".ui.test.aac.LiveDataActivity" />
+        <activity
+            android:name=".ui.test.aac.LiveDataActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.WebActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

@@ -3,19 +3,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFF">
+    android:background="#F1F2F5">
 
     <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appbar"
+        android:id="@+id/ablAppBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#FFF"
         android:orientation="vertical">
 
-        <FrameLayout
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/ctlCollapsing"
             android:layout_width="match_parent"
             android:layout_height="360dp"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+            android:fitsSystemWindows="true"
+            app:contentScrim="?attr/colorPrimary"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
+            app:statusBarScrim="@android:color/transparent">
 
             <ImageView
                 android:id="@+id/ivPicture"
@@ -29,8 +33,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:background="@color/transparent"
-                app:contentInsetStart="0dp"/>
-        </FrameLayout>
+                app:contentInsetStart="0dp"
+                app:layout_collapseMode="pin" />
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.recyclerview.widget.RecyclerView

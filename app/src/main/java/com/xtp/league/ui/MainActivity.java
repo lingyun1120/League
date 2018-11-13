@@ -2,8 +2,10 @@ package com.xtp.league.ui;
 
 import android.os.Bundle;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
 import com.google.android.material.tabs.TabLayout;
 import com.xtp.league.R;
+import com.xtp.league.global.Constant;
 import com.xtp.league.ui.gank.GankFragment;
 import com.xtp.league.ui.test.TestFragment;
 import com.xtp.league.ui.wan.WanFragment;
@@ -16,6 +18,7 @@ import java.util.List;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
+@Route(path = Constant.AR_MAIN_ACTIVITY)
 public class MainActivity extends BaseActivity {
 
     public static final String FRAGMENT_GANK_TAG = "main_fragment_gank";

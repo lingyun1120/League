@@ -1,8 +1,6 @@
 package com.xtp.league.ui.gank.detail;
 
 import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,8 +8,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.bumptech.glide.request.RequestOptions;
 import com.xtp.league.R;
+import com.xtp.league.global.Constant;
 import com.xtp.league.pojo.GankBean;
 import com.xtp.league.pojo.GankDetailBean;
 import com.xtp.library.util.GlideApp;
@@ -35,11 +35,11 @@ public class GankAdapter extends RecyclerView.Adapter<GankAdapter.ItemHolder> {
 
     public void setData(GankDetailBean bean) {
         if (bean == null || bean.getResults() == null) return;
-        if (bean.getResults().getAndroid() != null) {
-            mDatas.addAll(bean.getResults().getAndroid());
-        }
         if (bean.getResults().getIOS() != null) {
             mDatas.addAll(bean.getResults().getIOS());
+        }
+        if (bean.getResults().getAndroid() != null) {
+            mDatas.addAll(bean.getResults().getAndroid());
         }
         if (bean.getResults().getWeb() != null) {
             mDatas.addAll(bean.getResults().getWeb());
@@ -116,11 +116,9 @@ public class GankAdapter extends RecyclerView.Adapter<GankAdapter.ItemHolder> {
         }
 
         viewHolder.llRoot.setOnClickListener(v -> {
-            Intent intent = new Intent();
-            intent.setAction("android.intent.action.VIEW");
-            Uri content_url = Uri.parse(bean.getUrl());
-            intent.setData(content_url);
-            context.startActivity(intent);
+            ARouter.getInstance().build("/main/WebActivity")
+                    .withString(Constant.KEY_URL, bean.getUrl())
+                    .navigation();
         });
     }
 
