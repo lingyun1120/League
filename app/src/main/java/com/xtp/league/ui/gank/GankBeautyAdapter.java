@@ -48,7 +48,7 @@ public class GankBeautyAdapter extends RecyclerView.Adapter<GankBeautyAdapter.It
     @NonNull
     @Override
     public GankBeautyAdapter.ItemHolder onCreateViewHolder(@NonNull ViewGroup parent, int position) {
-        return new ItemHolder(LayoutInflater.from(context).inflate(R.layout.gank_recycle_item, parent, false));
+        return new ItemHolder(LayoutInflater.from(context).inflate(R.layout.gank_beauty_recycle_item, parent, false));
     }
 
     @Override

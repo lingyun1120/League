@@ -1,19 +1,20 @@
 package com.xtp.league.ui;
 
-import com.google.android.material.tabs.TabLayout;
-import androidx.fragment.app.Fragment;
-import androidx.viewpager.widget.ViewPager;
 import android.os.Bundle;
-import androidx.appcompat.widget.Toolbar;
 
+import com.google.android.material.tabs.TabLayout;
 import com.xtp.league.R;
 import com.xtp.league.ui.gank.GankFragment;
 import com.xtp.league.ui.test.TestFragment;
 import com.xtp.league.ui.wan.WanFragment;
 import com.xtp.library.base.BaseActivity;
+import com.xtp.library.widget.FixedFragmentPagerAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.ViewPager;
 
 public class MainActivity extends BaseActivity {
 
@@ -23,7 +24,7 @@ public class MainActivity extends BaseActivity {
 
     private TabLayout tabLayout;
     private ViewPager vpPages;
-    private MainPagerAdapter mPagerAdapter;
+    private FixedFragmentPagerAdapter mPagerAdapter;
 
     private GankFragment mGankFragment;
     private WanFragment mWanFragment;
@@ -34,10 +35,8 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
 
-        setSupportActionBar((Toolbar) findViewById(R.id.tToolbar));
-
         mImmersionBar
-                .titleBar(findViewById(R.id.tToolbar))
+                .titleBar(findViewById(R.id.tabLayout))
                 .statusBarDarkFont(true, 0.2f)
                 .navigationBarEnable(false)
                 .init();
@@ -82,7 +81,12 @@ public class MainActivity extends BaseActivity {
         tags.add(FRAGMENT_WAN_TAG);
         tags.add(FRAGMENT_TEST_TAG);
 
-        mPagerAdapter = new MainPagerAdapter(getSupportFragmentManager(), list, tags);
+        List<String> titles = new ArrayList<>();
+        titles.add("GANK.IO");
+        titles.add("WAN");
+        titles.add("TEST");
+
+        mPagerAdapter = new FixedFragmentPagerAdapter(getSupportFragmentManager(), list, tags, titles);
         vpPages.setAdapter(mPagerAdapter);
         vpPages.setOffscreenPageLimit(3);
         tabLayout.setupWithViewPager(vpPages);

@@ -1,31 +1,34 @@
-package com.xtp.league.ui;
+package com.xtp.library.widget;
 
 import android.os.Parcelable;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.viewpager.widget.PagerAdapter;
 import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.List;
 
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.viewpager.widget.PagerAdapter;
+
 /**
- *  modify on {@link FragmentPagerAdapter}
- *  XTP 2018.9.6
+ * modify on {@link FragmentPagerAdapter}
+ * XTP 2018.9.6
  */
-public class MainPagerAdapter extends PagerAdapter {
+public class FixedFragmentPagerAdapter extends PagerAdapter {
     private FragmentManager mFragmentManager;
     private FragmentTransaction mCurTransaction = null;
     private Fragment mCurrentPrimaryItem = null;
     private List<Fragment> mList;
     private List<String> mTags;
+    private List<String> mTitles;
 
-    public MainPagerAdapter(FragmentManager fm, List<Fragment> list, List<String> tags) {
+    public FixedFragmentPagerAdapter(FragmentManager fm, List<Fragment> list, List<String> tags, List<String> titles) {
         mFragmentManager = fm;
         mList = list;
         mTags = tags;
+        mTitles = titles;
     }
 
     /**
@@ -43,8 +46,7 @@ public class MainPagerAdapter extends PagerAdapter {
     @Override
     public void startUpdate(ViewGroup container) {
         if (container.getId() == View.NO_ID) {
-            throw new IllegalStateException("ViewPager with adapter " + this
-                    + " requires a view id");
+            throw new IllegalStateException("ViewPager with adapter " + this + " requires a view id");
         }
     }
 
@@ -119,12 +121,6 @@ public class MainPagerAdapter extends PagerAdapter {
 
     @Override
     public CharSequence getPageTitle(int position) {
-        if (position ==0 ) {
-            return "GANK";
-        } else if (position ==1 ) {
-            return "WAN";
-        } else {
-            return "TEST";
-        }
+        return mTitles.get(position);
     }
 }

@@ -8,19 +8,18 @@ import android.widget.ImageView;
 import com.xtp.league.R;
 import com.xtp.league.global.Constant;
 import com.xtp.league.util.GlideUtil;
-import com.xtp.library.base.mvvm.VMBaseActivity;
+import com.xtp.library.base.BaseActivity;
 
 /**
  * LiveData ViewModel
  */
-public class LiveDataActivity extends VMBaseActivity {
+public class LiveDataActivity extends BaseActivity {
     private Toolbar tToolbar;
-    private ImageView ivPicture;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.gank_detail_activity);
+        setContentView(R.layout.live_data_activity);
 
         initView();
     }
@@ -39,10 +38,6 @@ public class LiveDataActivity extends VMBaseActivity {
                 .statusBarDarkFont(false)
                 .navigationBarEnable(false)
                 .init();
-
-        ivPicture = findViewById(R.id.ivPicture);
-
-        GlideUtil.load(this, ivPicture, getIntent().getStringExtra(Constant.KEY_IMG));
     }
 
     @Override

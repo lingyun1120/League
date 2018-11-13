@@ -1,35 +1,30 @@
 package com.xtp.league.ui.gank.detail;
 
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 import android.os.Bundle;
-import androidx.annotation.Nullable;
-import androidx.appcompat.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.ImageView;
 
+import com.google.android.material.tabs.TabLayout;
 import com.orhanobut.logger.Logger;
 import com.xtp.league.App;
 import com.xtp.league.R;
 import com.xtp.league.global.Constant;
-import com.xtp.league.http.ApiService;
-import com.xtp.league.http.BaseObserver;
 import com.xtp.league.pojo.GankDetailBean;
 import com.xtp.league.util.GlideUtil;
 import com.xtp.library.base.BaseActivity;
-import com.xtp.library.http.RetrofitClient;
-import com.xtp.library.http.RxSchedulers;
 
-import java.util.concurrent.TimeUnit;
-
-import io.reactivex.Observable;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class GankDetailActivity extends BaseActivity {
 
     private Toolbar tToolbar;
     private ImageView ivPicture;
+    private RecyclerView rvList;
 
     private GankDetailViewModel mVM;
 
@@ -46,6 +41,8 @@ public class GankDetailActivity extends BaseActivity {
 
     private void initView() {
         tToolbar = findViewById(R.id.tToolbar);
+        rvList = findViewById(R.id.rvList);
+
         setSupportActionBar(tToolbar);
         //设置是否有返回箭头
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -66,17 +63,19 @@ public class GankDetailActivity extends BaseActivity {
     public void initData() {
         String date = getIntent().getStringExtra(Constant.KEY_DATE);
         final String[] arr = date.split("-");
-        ivPicture.postDelayed(new Runnable() {
+        mVM.getGankDetail(arr[0], arr[1], arr[2]).observe(GankDetailActivity.this, new Observer<GankDetailBean>() {
             @Override
-            public void run() {
-                mVM.getGankDetail(arr[0], arr[1], arr[2]).observe(GankDetailActivity.this, new Observer<GankDetailBean>() {
-                    @Override
-                    public void onChanged(@Nullable GankDetailBean gankDetailBean) {
-                        Logger.e("-----> onChanged " + gankDetailBean);
-                    }
-                });
+            public void onChanged(@Nullable GankDetailBean gankDetailBean) {
+                Logger.e("-----> onChanged " + gankDetailBean);
+
+                GankAdapter mAdapter = new GankAdapter(GankDetailActivity.this);
+                LinearLayoutManager linear = new LinearLayoutManager(GankDetailActivity.this);
+                rvList.setLayoutManager(linear);
+                rvList.setAdapter(mAdapter);
+                rvList.setHasFixedSize(true);
+                mAdapter.setData(gankDetailBean);
             }
-        }, 3000);
+        });
     }
 
     @Override
