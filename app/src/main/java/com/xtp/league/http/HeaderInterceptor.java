@@ -14,7 +14,7 @@ public class HeaderInterceptor implements Interceptor {
         Request originalRequest = chain.request();
         try {
             Request.Builder builder = originalRequest.newBuilder();
-            builder.addHeader("Content-Type", "application/json");
+//            builder.addHeader("Content-Type", "json");
 //            builder.addHeader("access-token", "");
             Request newRequest = builder.build();
             Logger.i(newRequest.headers().toString());

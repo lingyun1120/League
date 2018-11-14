@@ -40,7 +40,7 @@ public class XLibrary {
                 .build();
         Logger.addLogAdapter(new FileLogAdapter(fileFormatStrategy));
 
-        RetrofitClient.getInstance().init(baseUrl, interceptor);
+        RetrofitClient.getInstance().init(interceptor);
     }
 
     public static Application getApplication() {

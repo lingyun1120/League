@@ -1,6 +1,7 @@
 package com.xtp.league.ui.gank.detail;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.MenuItem;
 import android.widget.ImageView;
 
@@ -22,7 +23,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class GankDetailActivity extends BaseActivity {
+public class GankDetailActivity extends BaseActivity implements Observer<GankDetailBean> {
 
     private AppBarLayout ablAppBar;
     private Toolbar tToolbar;
@@ -70,20 +71,9 @@ public class GankDetailActivity extends BaseActivity {
 
     public void initData() {
         String date = getIntent().getStringExtra(Constant.KEY_DATE);
+        if (TextUtils.isEmpty(date)) return;
         final String[] arr = date.split("-");
-        mVM.getGankDetail(arr[0], arr[1], arr[2]).observe(GankDetailActivity.this, new Observer<GankDetailBean>() {
-            @Override
-            public void onChanged(@Nullable GankDetailBean gankDetailBean) {
-                Logger.e("-----> onChanged " + gankDetailBean);
-
-                GankAdapter mAdapter = new GankAdapter(GankDetailActivity.this);
-                LinearLayoutManager linear = new LinearLayoutManager(GankDetailActivity.this);
-                rvList.setLayoutManager(linear);
-                rvList.setAdapter(mAdapter);
-                rvList.setHasFixedSize(true);
-                mAdapter.setData(gankDetailBean);
-            }
-        });
+        mVM.getGankDetail(arr[0], arr[1], arr[2]).observe(GankDetailActivity.this, this);
     }
 
     @Override
@@ -93,5 +83,16 @@ public class GankDetailActivity extends BaseActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onChanged(GankDetailBean gankDetailBean) {
+        Logger.e("-----> onChanged " + gankDetailBean);
+        GankAdapter mAdapter = new GankAdapter(GankDetailActivity.this);
+        LinearLayoutManager linear = new LinearLayoutManager(GankDetailActivity.this);
+        rvList.setLayoutManager(linear);
+        rvList.setAdapter(mAdapter);
+        rvList.setHasFixedSize(true);
+        mAdapter.setData(gankDetailBean);
     }
 }

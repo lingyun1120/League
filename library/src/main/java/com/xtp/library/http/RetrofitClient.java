@@ -38,7 +38,7 @@ public class RetrofitClient {
         return mInstance;
     }
 
-    public void init(String baseUrl, Interceptor customInterceptor) {
+    public void init(Interceptor customInterceptor) {
         if (mRetrofit == null) {
             if (mOkHttpClient == null) {
                 HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
@@ -54,21 +54,20 @@ public class RetrofitClient {
                         .addInterceptor(customInterceptor)
                         .build();
             }
-
-            mRetrofit = new Retrofit.Builder()
-                    .client(mOkHttpClient)
-                    .baseUrl(baseUrl)
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                    .build();
         }
     }
 
-    public <T> T obtainService(Class<T> apiService) {
-        T retrofitService = (T) mServiceCache.get(apiService.getCanonicalName());
+    public <T> T obtainService(String url, Class<T> apiService) {
+        T retrofitService = (T) mServiceCache.get(url);
         if (retrofitService == null) {
+            mRetrofit = new Retrofit.Builder()
+                    .client(mOkHttpClient)
+                    .baseUrl(url)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                    .build();
             retrofitService = mRetrofit.create(apiService);
-            mServiceCache.put(apiService.getCanonicalName(), retrofitService);
+            mServiceCache.put(url, retrofitService);
         }
         return retrofitService;
     }

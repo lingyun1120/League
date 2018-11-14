@@ -6,6 +6,7 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.google.android.material.tabs.TabLayout;
 import com.xtp.league.R;
 import com.xtp.league.global.Constant;
+import com.xtp.league.ui.douban.DoubanFragment;
 import com.xtp.league.ui.gank.GankFragment;
 import com.xtp.league.ui.test.TestFragment;
 import com.xtp.league.ui.wan.WanFragment;
@@ -21,6 +22,7 @@ import androidx.viewpager.widget.ViewPager;
 @Route(path = Constant.AR_MAIN_ACTIVITY)
 public class MainActivity extends BaseActivity {
 
+    public static final String FRAGMENT_DOUBAN_TAG = "main_fragment_douban";
     public static final String FRAGMENT_GANK_TAG = "main_fragment_gank";
     public static final String FRAGMENT_WAN_TAG = "main_fragment_wan";
     public static final String FRAGMENT_TEST_TAG = "main_fragment_test";
@@ -29,6 +31,7 @@ public class MainActivity extends BaseActivity {
     private ViewPager vpPages;
     private FixedFragmentPagerAdapter mPagerAdapter;
 
+    private DoubanFragment mDoubanFragment;
     private GankFragment mGankFragment;
     private WanFragment mWanFragment;
     private TestFragment mTestFragment;
@@ -54,6 +57,13 @@ public class MainActivity extends BaseActivity {
     }
 
     private void initFragments() {
+        Fragment frag = getSupportFragmentManager().findFragmentByTag(FRAGMENT_DOUBAN_TAG);
+        if (frag == null) {
+            mDoubanFragment = new DoubanFragment();
+        } else {
+            mDoubanFragment = (DoubanFragment) frag;
+        }
+
         Fragment fragment = getSupportFragmentManager().findFragmentByTag(FRAGMENT_GANK_TAG);
         if (fragment == null) {
             mGankFragment = new GankFragment();
@@ -75,17 +85,20 @@ public class MainActivity extends BaseActivity {
             mTestFragment = (TestFragment) fragment2;
         }
         List<Fragment> list = new ArrayList<>();
+        list.add(mDoubanFragment);
         list.add(mGankFragment);
         list.add(mWanFragment);
         list.add(mTestFragment);
 
         List<String> tags = new ArrayList<>();
+        tags.add(FRAGMENT_DOUBAN_TAG);
         tags.add(FRAGMENT_GANK_TAG);
         tags.add(FRAGMENT_WAN_TAG);
         tags.add(FRAGMENT_TEST_TAG);
 
         List<String> titles = new ArrayList<>();
-        titles.add("GANK.IO");
+        titles.add("DOUBAN");
+        titles.add("GANK");
         titles.add("WAN");
         titles.add("TEST");
 

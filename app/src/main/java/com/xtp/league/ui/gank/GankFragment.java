@@ -14,8 +14,7 @@ import com.xtp.league.http.BaseObserver;
 import com.xtp.league.pojo.GankBeautyBean;
 import com.xtp.library.base.BaseFragment;
 import com.xtp.library.http.RetrofitClient;
-import com.xtp.library.http.RxSchedulers;
-import com.xtp.library.util.RxUtil;
+import com.xtp.library.http.RxUtil;
 import com.xtp.library.util.bar.ImmersionBar;
 
 import androidx.annotation.NonNull;
@@ -73,9 +72,9 @@ public class GankFragment extends BaseFragment {
 
     private void requestGankWelfare() {
         RetrofitClient.getInstance()
-                .obtainService(ApiService.class)
+                .obtainService(ApiService.GANK_URL, ApiService.class)
                 .getBeauty(15, mPage)
-                .compose(RxSchedulers.<GankBeautyBean>compose())
+                .compose(RxUtil.<GankBeautyBean>compose())
                 .as(RxUtil.<GankBeautyBean>bindLifecycle(this))
                 .subscribe(new BaseObserver<GankBeautyBean>() {
                     @Override
@@ -91,8 +90,8 @@ public class GankFragment extends BaseFragment {
 
                     @Override
                     protected void onFailed(int code, String msg) {
-                        refreshLayout.finishRefresh(false);
-                        refreshLayout.finishLoadMore(false);
+                        refreshLayout.finishRefresh(true);
+                        refreshLayout.finishLoadMore(true);
                     }
                 });
 

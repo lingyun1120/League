@@ -5,7 +5,7 @@ import com.xtp.league.http.ApiService;
 import com.xtp.league.http.BaseObserver;
 import com.xtp.league.pojo.GankDetailBean;
 import com.xtp.library.http.RetrofitClient;
-import com.xtp.library.http.RxSchedulers;
+import com.xtp.library.http.RxUtil;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -17,9 +17,9 @@ public class GankDetailViewModel extends ViewModel {
 
     public LiveData<GankDetailBean> getGankDetail(String year, String month, String day) {
         RetrofitClient.getInstance()
-                .obtainService(ApiService.class)
+                .obtainService(ApiService.GANK_URL, ApiService.class)
                 .getDetail(year, month, day)
-                .compose(RxSchedulers.<GankDetailBean>compose())
+                .compose(RxUtil.<GankDetailBean>compose())
                 .subscribe(new BaseObserver<GankDetailBean>() {
                     @Override
                     protected void onSuccess(GankDetailBean bean) {
