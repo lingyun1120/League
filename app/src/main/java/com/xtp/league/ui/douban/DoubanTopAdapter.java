@@ -74,11 +74,13 @@ public class DoubanTopAdapter extends RecyclerView.Adapter<DoubanTopAdapter.Item
         viewHolder.tvDate.setText("上映日期：" + mData.get(position).getYear());
 
         viewHolder.flRoot.setOnClickListener(view -> {
-            Intent intent = new Intent(context, GankDetailActivity.class);
+            Intent intent = new Intent(context, MovieDetailActivity.class);
             intent.putExtra(Constant.KEY_IMG, mData.get(position).getImages().getLarge());
+            intent.putExtra(Constant.KEY_ID, mData.get(position).getId());
 
-            Pair image = new Pair(viewHolder.ivPoster, "image");
-            ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation((Activity) context, image);
+            Pair poster = new Pair(viewHolder.ivPoster, "poster");
+            Pair bg = new Pair(viewHolder.ivBg, "bg");
+            ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation((Activity) context, poster, bg);
             context.startActivity(intent, optionsCompat.toBundle());
         });
     }

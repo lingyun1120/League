@@ -67,7 +67,7 @@ public class WebActivity extends BaseActivity {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
                 Logger.d("---> shouldOverrideUrlLoading: " + request.toString());
-                return true;
+                return super.shouldOverrideUrlLoading(view, request);
             }
 
             @Override

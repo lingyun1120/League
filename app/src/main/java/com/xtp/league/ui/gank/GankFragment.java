@@ -33,7 +33,7 @@ public class GankFragment extends BaseFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.gank_fragment, container, false);
+        View view = inflater.inflate(R.layout.common_list_fragment, container, false);
         initUI(view);
         return view;
     }

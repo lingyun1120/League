@@ -6,7 +6,7 @@ public class BaseBean {
     private String errorMessage;
 
     public boolean isSuccess() {
-        return !error;
+        return !error || errorCode == 0;
     }
 
     public String getErrorMessage() {

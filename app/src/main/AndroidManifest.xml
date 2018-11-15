@@ -30,6 +30,9 @@
         <activity
             android:name=".ui.WebActivity"
             android:screenOrientation="portrait" />
+        <activity android:name=".ui.douban.MovieDetailActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.White" />
     </application>
 
 </manifest>

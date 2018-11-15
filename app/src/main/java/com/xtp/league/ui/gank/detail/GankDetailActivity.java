@@ -6,7 +6,6 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 
 import com.google.android.material.appbar.AppBarLayout;
-import com.google.android.material.tabs.TabLayout;
 import com.orhanobut.logger.Logger;
 import com.xtp.league.App;
 import com.xtp.league.R;
@@ -16,7 +15,6 @@ import com.xtp.league.util.GlideUtil;
 import com.xtp.library.base.BaseActivity;
 import com.xtp.library.util.Util;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -30,14 +28,14 @@ public class GankDetailActivity extends BaseActivity implements Observer<GankDet
     private ImageView ivPicture;
     private RecyclerView rvList;
 
-    private GankDetailViewModel mVM;
+    private GankViewModel mVM;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.gank_detail_activity);
 
-        mVM = ViewModelProvider.AndroidViewModelFactory.getInstance(App.getApplication()).create(GankDetailViewModel.class);
+        mVM = ViewModelProvider.AndroidViewModelFactory.getInstance(App.getApplication()).create(GankViewModel.class);
 
         initView();
         initData();

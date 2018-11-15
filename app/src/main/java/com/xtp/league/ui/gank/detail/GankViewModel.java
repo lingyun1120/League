@@ -11,7 +11,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class GankDetailViewModel extends ViewModel {
+public class GankViewModel extends ViewModel {
 
     private MutableLiveData<GankDetailBean> listData = new MutableLiveData<>();
 

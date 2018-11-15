@@ -14,6 +14,7 @@ import com.xtp.league.global.Constant;
 import com.xtp.league.pojo.GankBeautyBean;
 import com.xtp.league.ui.gank.detail.GankDetailActivity;
 import com.xtp.league.util.GlideUtil;
+import com.xtp.library.util.GlideApp;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +23,9 @@ import androidx.annotation.NonNull;
 import androidx.core.app.ActivityOptionsCompat;
 import androidx.core.util.Pair;
 import androidx.recyclerview.widget.RecyclerView;
+import jp.wasabeef.glide.transformations.BlurTransformation;
+
+import static com.xtp.library.util.GlideOptions.bitmapTransform;
 
 public class GankBeautyAdapter extends RecyclerView.Adapter<GankBeautyAdapter.ItemHolder> {
 
@@ -54,7 +58,13 @@ public class GankBeautyAdapter extends RecyclerView.Adapter<GankBeautyAdapter.It
 
     @Override
     public void onBindViewHolder(@NonNull final GankBeautyAdapter.ItemHolder viewHolder, final int position) {
-        GlideUtil.load(context, viewHolder.ivPicture, mData.get(position).getUrl());
+        GlideApp.with(context)
+                .asBitmap()
+                .apply(bitmapTransform(new BlurTransformation(5, 1)))
+                .load(mData.get(position).getUrl())
+                .into(viewHolder.ivPicture);
+
+
         viewHolder.tvDetail.setText(mData.get(position).getPublishedAt().split("T")[0]);
         viewHolder.ivPicture.setOnClickListener(new View.OnClickListener() {
             @Override

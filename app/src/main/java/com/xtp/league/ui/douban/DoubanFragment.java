@@ -27,7 +27,7 @@ public class DoubanFragment extends BaseFragment implements Observer<DoubanTopBe
     private DoubanTopAdapter mAdapter;
     private RefreshLayout refreshLayout;
     private int mStart = 0;
-    private int mCount = 10;
+    private int mCount = 20;
 
     private DoubanViewModel mVM;
 
@@ -40,7 +40,7 @@ public class DoubanFragment extends BaseFragment implements Observer<DoubanTopBe
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.douban_fragment, container, false);
+        View view = inflater.inflate(R.layout.common_list_fragment, container, false);
         initUI(view);
         return view;
     }
@@ -74,7 +74,7 @@ public class DoubanFragment extends BaseFragment implements Observer<DoubanTopBe
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        requestDoubanTop();
+        refreshLayout.autoRefresh(300);
     }
 
     private void requestDoubanTop() {
