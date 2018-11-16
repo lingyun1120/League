@@ -97,7 +97,7 @@ public class MainActivity extends BaseActivity {
         tags.add(FRAGMENT_TEST_TAG);
 
         List<String> titles = new ArrayList<>();
-        titles.add("DOUBAN");
+        titles.add("TOP");
         titles.add("GANK");
         titles.add("WAN");
         titles.add("TEST");

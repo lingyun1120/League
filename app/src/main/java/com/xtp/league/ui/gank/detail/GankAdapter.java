@@ -116,7 +116,7 @@ public class GankAdapter extends RecyclerView.Adapter<GankAdapter.ItemHolder> {
         }
 
         viewHolder.llRoot.setOnClickListener(v -> {
-            ARouter.getInstance().build("/main/WebActivity")
+            ARouter.getInstance().build(Constant.AR_WEB_ACTIVITY)
                     .withString(Constant.KEY_URL, bean.getUrl())
                     .navigation();
         });

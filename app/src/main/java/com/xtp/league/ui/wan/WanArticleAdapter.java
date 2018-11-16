@@ -1,34 +1,30 @@
 package com.xtp.league.ui.wan;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
-import android.text.TextUtils;
+import android.graphics.Color;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.xtp.league.R;
 import com.xtp.league.global.Constant;
-import com.xtp.league.pojo.DoubanTopBean;
 import com.xtp.league.pojo.WanArticleBean;
-import com.xtp.league.ui.gank.detail.GankDetailActivity;
-import com.xtp.league.util.GlideUtil;
-import com.xtp.library.util.GlideApp;
+import com.xtp.league.widget.RoundBackgroundColorSpan;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import androidx.annotation.NonNull;
-import androidx.core.app.ActivityOptionsCompat;
-import androidx.core.util.Pair;
 import androidx.recyclerview.widget.RecyclerView;
-import jp.wasabeef.glide.transformations.BlurTransformation;
-
-import static com.xtp.library.util.GlideOptions.bitmapTransform;
 
 public class WanArticleAdapter extends RecyclerView.Adapter<WanArticleAdapter.ItemHolder> {
 
@@ -61,6 +57,30 @@ public class WanArticleAdapter extends RecyclerView.Adapter<WanArticleAdapter.It
 
     @Override
     public void onBindViewHolder(@NonNull final WanArticleAdapter.ItemHolder viewHolder, final int position) {
+
+        String str1 = mData.get(position).getSuperChapterName();
+        String str2 = mData.get(position).getTitle();
+        String str = str1 + str2;
+
+        SpannableString spannableString = new SpannableString(str);
+        int bgColor = Color.parseColor("#22ad79");
+        int textColor = Color.parseColor("#22ad79");
+        RoundBackgroundColorSpan span = new RoundBackgroundColorSpan(bgColor, textColor, 5);
+        spannableString.setSpan(span, 0, str1.length(), Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
+        viewHolder.tvTitle.setText(spannableString);
+        viewHolder.tvTitle.setMovementMethod(LinkMovementMethod.getInstance());
+
+        viewHolder.tvCategory.setText(mData.get(position).getSuperChapterName() + " / " + mData.get(position).getChapterName());
+        viewHolder.tvAuthor.setText(mData.get(position).getAuthor());
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault());
+        Date date = new Date();
+        date.setTime(mData.get(position).getPublishTime());
+        viewHolder.tvDate.setText(sdf.format(date));
+        viewHolder.flRoot.setOnClickListener(v -> {
+            ARouter.getInstance().build(Constant.AR_WEB_ACTIVITY)
+                    .withString(Constant.KEY_URL, mData.get(position).getLink())
+                    .navigation();
+        });
     }
 
     @Override
@@ -69,28 +89,20 @@ public class WanArticleAdapter extends RecyclerView.Adapter<WanArticleAdapter.It
     }
 
     class ItemHolder extends RecyclerView.ViewHolder {
-
-        private FrameLayout flRoot;
-        private ImageView ivBg;
-        private ImageView ivPoster;
+        private LinearLayout flRoot;
         private TextView tvTitle;
-        private TextView tvDirector;
-        private TextView tvActors;
+        private TextView tvCategory;
+        private TextView tvAuthor;
         private TextView tvDate;
-        private TextView tvGenres;
-
 
         public ItemHolder(@NonNull View itemView) {
             super(itemView);
-
             flRoot = itemView.findViewById(R.id.flRoot);
-            ivBg = itemView.findViewById(R.id.ivBg);
-            ivPoster = itemView.findViewById(R.id.ivPoster);
             tvTitle = itemView.findViewById(R.id.tvTitle);
-            tvDirector = itemView.findViewById(R.id.tvDirector);
-            tvActors = itemView.findViewById(R.id.tvActors);
+            tvCategory = itemView.findViewById(R.id.tvCategory);
+            tvAuthor = itemView.findViewById(R.id.tvAuthor);
             tvDate = itemView.findViewById(R.id.tvDate);
-            tvGenres = itemView.findViewById(R.id.tvGenres);
+
         }
     }
 }
