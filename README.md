@@ -1,2 +1,2 @@
 # League
-Collection Of Android Samples
+GANK.IO & WANANDROID & DOUBAN
